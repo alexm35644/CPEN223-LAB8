@@ -36,5 +36,15 @@ namespace Lab8.Tests
         {
             RootFinding.Bisection(TestFunction2, 0.8, 0.85, 0.0001);
         }
+
+        [TestMethod()]
+        public void SecantTest1()
+        {
+            double epsilon = 0.000000001;
+            double a = 0.5;
+            double b = 1.5;
+            double result = RootFinding.Secant(TestFunction1, a, b, epsilon);
+            Assert.AreEqual(1, result, epsilon);
+        }
     }
 }

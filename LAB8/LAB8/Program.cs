@@ -34,7 +34,32 @@ namespace Lab8
         /// </exception>
         public static double Bisection(Function f, double a, double b, double epsilon)
         {
+            if(f(a)*f(b)>0 || epsilon <= 0)
+            {
+                throw new ArgumentException("invalid");
+            }
 
+            int count = 0;
+            double c;
+
+            while (count < 300)
+            {
+                c = (a + b) / 2;
+                if(Math.Abs(f(c)) < epsilon)
+                {
+                    return c;
+                }
+                else if(f(c) * f(a) > 0)
+                {
+                    a = c;
+                }
+                else
+                {
+                    b = c;
+                }
+                count++;
+            } 
+            return double.NaN;
         }
 
         /// <summary>
@@ -51,7 +76,15 @@ namespace Lab8
         /// </exception>
         public static double Secant(Function f, double x0, double x1, double epsilon)
         {
-
+            double xn;
+            do
+            {
+                xn = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0));
+                x0 = x1;
+                x1 = xn;
+            }
+            while (Math.Abs(f(xn)) > epsilon);
+            return xn;
         }
     }
 }
